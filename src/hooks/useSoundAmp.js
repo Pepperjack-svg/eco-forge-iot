@@ -70,12 +70,13 @@ export function useSoundAmp() {
         deviceRef.current.removeEventListener('gattserverdisconnected', onDisconnected);
       await cleanup();
 
-      // Android Chrome's BLE scanner does not reliably match 128-bit service UUIDs
-      // in advertising packets. Filtering by device name is consistently supported
-      // across all Android versions. optionalServices grants GATT access after
-      // connecting (required when the filter does not use the services key).
+      // acceptAllDevices shows every visible BLE device so the user can pick
+      // "SoundAmp-IoT" from the list.  Filtered approaches (by name or service
+      // UUID) fail on many Android versions because Chrome may not send a scan
+      // request to get the full advertising payload, so the filter never matches.
+      // optionalServices is required to grant GATT access after connecting.
       const device = await navigator.bluetooth.requestDevice({
-        filters: [{ name: 'SoundAmp-IoT' }],
+        acceptAllDevices: true,
         optionalServices: [SERVICE_UUID],
       });
       deviceRef.current = device;

@@ -107,7 +107,7 @@ struct GainCB : BLECharacteristicCallbacks {
 struct Stub : BLECharacteristicCallbacks { void onWrite(BLECharacteristic*) override {} };
 
 static void setupBLE() {
-  BLEDevice::init("SoundAmp-IoT");
+  BLEDevice::init("SoundAmp");   // ≤8 chars fits in primary advertising packet
   auto* srv=BLEDevice::createServer(); srv->setCallbacks(new ConnCB());
   auto* svc=srv->createService(BLEUUID(SERVICE_UUID),30);
 
