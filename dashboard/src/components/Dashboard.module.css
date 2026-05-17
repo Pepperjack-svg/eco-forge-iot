@@ -1,0 +1,248 @@
+/* ── Layout ─────────────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px 40px;
+}
+
+.main {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.header {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0 24px;
+}
+
+.title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent2), var(--green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Badge ──────────────────────────────────────────────────── */
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+.badgeOn { color: var(--green); border-color: rgba(0,206,201,0.3); }
+
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+.dotOn { background: var(--green); animation: pulse 2s infinite; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn:hover:not(:disabled) { opacity: 0.85; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btnSecondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* ── Error banner ───────────────────────────────────────────── */
+.errorBanner {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255,107,107,0.12);
+  border: 1px solid rgba(255,107,107,0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+.errorClose { background: none; border: none; color: var(--red); font-size: 1rem; line-height: 1; flex-shrink: 0; cursor: pointer; }
+
+/* ── Card ───────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px;
+  backdrop-filter: blur(20px);
+}
+.cardLabel {
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ── VU meter ───────────────────────────────────────────────── */
+.vuTrack {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.07);
+  overflow: hidden;
+}
+.vuBar {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--green));
+  transition: width 0.15s ease;
+  min-width: 0;
+}
+.vuValue {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: right;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Mode grid ──────────────────────────────────────────────── */
+.modeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.modeBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 16px 8px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.modeBtn:hover:not(:disabled) { background: rgba(255,255,255,0.05); }
+.modeBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.modeBtn0.modeBtnActive { border-color: var(--red);    background: rgba(255,107,107,0.1);  color: var(--red); }
+.modeBtn1.modeBtnActive { border-color: var(--green);  background: rgba(0,206,201,0.1);    color: var(--green); }
+.modeBtn2.modeBtnActive { border-color: var(--accent2);background: rgba(108,92,231,0.12);  color: var(--accent2); }
+
+/* ── Gain slider ────────────────────────────────────────────── */
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.slider {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.08);
+  outline: none;
+  cursor: pointer;
+}
+.slider:disabled { opacity: 0.35; cursor: not-allowed; }
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(108,92,231,0.5);
+  transition: transform 0.15s;
+}
+.slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+.sliderVal {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent2);
+  min-width: 44px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.hint {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* ── Toggle ─────────────────────────────────────────────────── */
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.toggleLabel { font-size: 0.84rem; }
+.toggle {
+  position: relative;
+  width: 48px; height: 26px;
+  border-radius: 13px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+.toggle:disabled { opacity: 0.35; cursor: not-allowed; }
+.toggleOn { background: var(--accent); }
+.toggleThumb {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.3s;
+  pointer-events: none;
+}
+.toggleOn .toggleThumb { transform: translateX(22px); }
