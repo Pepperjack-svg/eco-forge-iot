@@ -49,15 +49,16 @@ export function useSoundAmp() {
   const connect = useCallback(async () => {
     const isLocal = ['localhost', '127.0.0.1', '::1'].includes(location.hostname);
     if (!window.isSecureContext && !isLocal) {
-      setError('HTTPS required. Use the dev server or deploy to Vercel.');
+      setError('HTTPS required. Open this page over HTTPS (Vercel URL).');
       return;
     }
     if (/ipad|iphone|ipod/i.test(navigator.userAgent)) {
-      setError('Web Bluetooth is not supported on iOS.');
+      setError('Web Bluetooth is not supported on iOS. Use an Android device with Chrome.');
       return;
     }
     if (!navigator.bluetooth) {
-      setError('Web Bluetooth not available. Use Chrome or Edge.');
+      // On Android, Web Bluetooth only works in Chrome — not Samsung Internet, Firefox, etc.
+      setError('Web Bluetooth not available. Open this page in Chrome on Android.');
       return;
     }
 
@@ -69,8 +70,13 @@ export function useSoundAmp() {
         deviceRef.current.removeEventListener('gattserverdisconnected', onDisconnected);
       await cleanup();
 
+      // Android Chrome's BLE scanner does not reliably match 128-bit service UUIDs
+      // in advertising packets. Filtering by device name is consistently supported
+      // across all Android versions. optionalServices grants GATT access after
+      // connecting (required when the filter does not use the services key).
       const device = await navigator.bluetooth.requestDevice({
-        filters: [{ services: [SERVICE_UUID] }],
+        filters: [{ name: 'SoundAmp-IoT' }],
+        optionalServices: [SERVICE_UUID],
       });
       deviceRef.current = device;
       device.addEventListener('gattserverdisconnected', onDisconnected);
